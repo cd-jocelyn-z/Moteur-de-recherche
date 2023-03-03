@@ -38,6 +38,11 @@ for WordRequete in requete.split(' '):
 
 print(result)
 
+<<<<<<< HEAD
 #rahim
+=======
+# (Salim) kfjdlfkd 
+
+>>>>>>> 9bc3043e62b98a40c5fdeae3bf2968b9bc79981d
 
 
