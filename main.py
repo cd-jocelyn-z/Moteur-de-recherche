@@ -1,5 +1,8 @@
 import readfile
+import re
 
+BDOCtest = readfile.readfile(".\\AMARYLLIS-98-extrait-OFIL 2\\OFIL\\OD1")
+print(BDOCtest)
 '''
     an indexion function using only a list of two elements.
     These elements are two textes imitating the role of documents and the BDOC is the database.
@@ -11,12 +14,14 @@ doc2="Algeria gained independence from France in 1962, after a long and difficul
 BDOC=[doc1,doc2]
 
 
+
 ## PHASE D'INDEXATION
 
 index={}
+
 for NumDoc,doc in enumerate(BDOC):
   dic2={}
-  for word in doc.split(" "):
+  for word in re.split(r'[,.?\s]+',doc):
     if word not in index.keys():
       dic2={NumDoc:0}
       index[word]=dic2
@@ -38,11 +43,5 @@ for WordRequete in requete.split(' '):
 
 print(result)
 
-<<<<<<< HEAD
-#rahim
-=======
-# (Salim) kfjdlfkd 
-
->>>>>>> 9bc3043e62b98a40c5fdeae3bf2968b9bc79981d
 
 
