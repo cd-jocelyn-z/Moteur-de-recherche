@@ -1,35 +1,29 @@
 import readfile
 import re
 
-BDOCtest = readfile.readfile(".\\AMARYLLIS-98-extrait-OFIL 2\\OFIL\\OD1")
-print(BDOCtest)
-'''
-    an indexion function using only a list of two elements.
-    These elements are two textes imitating the role of documents and the BDOC is the database.
-    BDOC ==> a list 
-    doc1 and doc2 ==> docs
-'''
-doc1='Algeria is a North African country with a rich history and diverse culture. Its capital is Algiers, which is known for its beautiful architecture and bustling markets. Algeria is the largest country in Africa and has a population of over 43 million people. The country is home to a variety of landscapes, from the Sahara Desert to the Mediterranean coastline, and has a unique blend of Arabic, Berber, and French influences in its culture and language.'
-doc2="Algeria gained independence from France in 1962, after a long and difficult struggle. Since then, the country has undergone significant political and economic changes, including a civil war in the 1990s. However, Algeria has also made significant progress in areas such as education, healthcare, and women's rights. The country is known for its rich cultural heritage, including traditional music and dance, and its beautiful handicrafts such as pottery, textiles, and jewelry. Despite the challenges it has faced, Algeria remains a vibrant and diverse country with a lot to offer."
-BDOC=[doc1,doc2]
-
-
+print("reading the content of the files.....")
+BDOC = readfile.readfile(".\\AMARYLLIS-98-extrait-OFIL 2\\OFIL\\OD1")
+print("end of reading")
 
 ## PHASE D'INDEXATION
 
 index={}
 
-for NumDoc,doc in enumerate(BDOC):
+for NumArticle in BDOCtest.keys():
   dic2={}
-  for word in re.split(r'[,.?\s]+',doc):
+  for word in re.split(r'[,.?\s\']+',BDOC[NumArticle]):
     if word not in index.keys():
-      dic2={NumDoc:0}
+      dic2={NumArticle:0}
       index[word]=dic2
     if word in index.keys():
-      if NumDoc in index[word].keys():
-        index[word][NumDoc]+=1
+      if NumArticle in index[word].keys():
+        index[word][NumArticle]+=1
       else:
-        index[word][NumDoc]=1
+        index[word][NumArticle]=1
+
+        
+print("le mot 'il'")
+print(index["il"])
 
 ## PHASE D'INTERROGATION
 
@@ -41,7 +35,7 @@ for WordRequete in requete.split(' '):
     if WordRequete == Word:
       result[Word]=index.get(WordRequete)
 
-print(result)
+#print(result)
 
 
 
