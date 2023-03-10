@@ -9,7 +9,7 @@ print("end of reading")
 
 index={}
 
-for NumArticle in BDOCtest.keys():
+for NumArticle in BDOC.keys():
   dic2={}
   for word in re.split(r'[,.?\s\']+',BDOC[NumArticle]):
     if word not in index.keys():
