@@ -16,7 +16,7 @@ bdoc_dict = read_file.get_bdoc_dict(file_contents)
 '''
         PHASE D'INDEXATION
 '''
-index_dict = indexation.get_index_dict(bdoc_dict)
+index_dict, doc_term_freq  = indexation.get_index_dict(bdoc_dict)
 print()
 print("INDEX DICT EX {WORD 1 : {DOC ID : WORD FREQ, DOC ID : WORD FREQ }, {WORD 2 : {DOC ID : WORD FREQ, DOC ID : WORD FREQ }}")
 print(index_dict)
