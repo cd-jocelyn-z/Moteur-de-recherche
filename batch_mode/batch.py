@@ -2,11 +2,10 @@ import os.path
 import re
 
 
-# Process : OT1
 def get_query_file(filename):
-    path_to_txt_file = os.path.join(os.curdir, filename)
+    file_path = os.path.join(os.curdir, "AMARYLLIS-98-extrait-OFIL", "OFIL", filename)
 
-    with open(path_to_txt_file, "r") as file:
+    with open(file_path, "r", encoding="ISO-8859-1") as file:
         lines = file.readlines()
 
     return [line.strip() for line in lines]
@@ -31,14 +30,14 @@ def get_queries(filename):
     return queries_dict
 
 
-print(get_queries("OT1.txt"))
+# print(get_queries("OT1.txt"))
 
 
-# Process : OT1D1
+# Process file OT1D1
 def get_expected_docs_file(filename):
-    path_to_txt_file = os.path.join(os.curdir, filename)
+    file_path = os.path.join(os.curdir, "AMARYLLIS-98-extrait-OFIL", "OFIL", filename)
 
-    with open(path_to_txt_file, "r") as file:
+    with open(file_path, "r") as file:
         lines = file.readlines()
 
     return [line.strip() for line in lines]
@@ -64,5 +63,7 @@ def get_expected_docs_dict(filename):
 
     return expected_docs_dict
 
+# print(get_expected_docs_dict("OT1D1.txt"))
 
-print(get_expected_docs_dict("OT1D1.txt"))
+
+# def get_precision_and_recall_results():
