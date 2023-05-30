@@ -1,10 +1,8 @@
 import tokenization as tk
 
 def indexation(BDOC):
-    index={} '''Dictionnaire qui a pour clé un mot et pour valeur un autre dictionnaire (dic2). Dic2 a pour clé le doc_id et pour valeur le nombre d'occurences du 
-    mot dans ce document'''
-    doc_term_freq = {}'''Dictionnaire qui a pour clé un numéro de document (NumArticle) et pour valeur un autre dictionnaire (term_freq_dict). term_freq_dict a pour
-    clé un mot et pour valeur le nombre d'occurences de ce mot dans le document NumArticle)'''
+    index={}
+    doc_term_freq = {}
 
     for NumArticle in BDOC.keys():
         dic2={}
