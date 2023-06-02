@@ -66,4 +66,22 @@ def get_expected_docs_dict(filename):
 # print(get_expected_docs_dict("OT1D1.txt"))
 
 
-# def get_precision_and_recall_results():
+def calculate_precision(retrieved_docs, expected_docs):
+    retrieved_set = set(retrieved_docs)
+    expected_set = set(expected_docs)
+    relevant_set = retrieved_set.intersection(expected_set)
+    precision = len(relevant_set) / len(retrieved_set) if len(retrieved_set) > 0 else 0.0
+    return precision
+
+
+def calculate_recall(retrieved_docs, expected_docs):
+    retrieved_set = set(retrieved_docs)
+    expected_set = set(expected_docs)
+    relevant_set = retrieved_set.intersection(expected_set)
+    recall = len(relevant_set) / len(expected_set) if len(expected_set) > 0 else 0.0
+    return recall
+
+
+def calculate_f1_score(precision, recall):
+    f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0.0
+    return f1_score

@@ -11,8 +11,8 @@ BDOC = readfile.readfile(".\\AMARYLLIS-98-extrait-OFIL 2\\OFIL\\OD1")
 print("end of reading")
 
 ## PHASE D'INDEXATION
-index,tf=indexation.indexation(BDOC)
-#print(tf)
+index=indexation.indexation(BDOC)
+
 
 
 ## PHASE D'INTERROGATION
@@ -43,9 +43,9 @@ for ID in common_keys:
 
 #print(t)
 
-
-        #le calcule de tf
-
+'''
+        le calcule de tf 
+'''
 terms=list(t)
 num_docs = len(common_keys)
 num_terms =len(terms)

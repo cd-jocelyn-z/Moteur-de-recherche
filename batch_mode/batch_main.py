@@ -42,11 +42,29 @@ print()
 '''
 
 batch_interrogation = {}
+batch_precision = {}
+batch_recall = {}
+batch_f1_score = {}
+
 for batch_q_id, batch_query in batch_queries.items():
     retrieved_docs_dict = interrogation.get_retrieved_docs_dict(index_dict, batch_query)
     batch_interrogation[batch_q_id] = retrieved_docs_dict
 
-print("BATCH INTERROGATION RESULT", batch_interrogation)
+    retrieved_docs = list(retrieved_docs_dict.keys())
+    expected_docs_for_query = expected_docs.get(batch_q_id, [])
+
+    precision = batch.calculate_precision(retrieved_docs, expected_docs_for_query)
+    recall = batch.calculate_recall(retrieved_docs, expected_docs_for_query)
+    f1_score = batch.calculate_f1_score(precision, recall)
+
+    batch_precision[batch_q_id] = precision
+    batch_recall[batch_q_id] = recall
+    batch_f1_score[batch_q_id] = f1_score
+
+print("\nBATCH INTERROGATION RESULT", batch_interrogation)
+print("\nBATCH PRECISION", batch_precision)
+print("\nBATCH RECALL", batch_recall)
+print("\nBATCH F1 SCORE", batch_f1_score)
 
 
 
