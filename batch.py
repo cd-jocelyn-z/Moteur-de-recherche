@@ -67,18 +67,14 @@ def get_expected_docs_dict(filename):
 
 
 def calculate_precision(retrieved_docs, expected_docs):
-    retrieved_set = set(retrieved_docs)
-    expected_set = set(expected_docs)
-    relevant_set = retrieved_set.intersection(expected_set)
-    precision = len(relevant_set) / len(retrieved_set) if len(retrieved_set) > 0 else 0.0
+    relevant_retrieved = len(set(retrieved_docs).intersection(expected_docs))
+    precision = relevant_retrieved / len(expected_docs)
     return precision
 
 
 def calculate_recall(retrieved_docs, expected_docs):
-    retrieved_set = set(retrieved_docs)
-    expected_set = set(expected_docs)
-    relevant_set = retrieved_set.intersection(expected_set)
-    recall = len(relevant_set) / len(expected_set) if len(expected_set) > 0 else 0.0
+    relevant_retrieved = len(set(retrieved_docs).intersection(expected_docs))
+    recall = relevant_retrieved / len(retrieved_docs)
     return recall
 
 
