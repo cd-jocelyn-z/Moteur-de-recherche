@@ -33,6 +33,8 @@ while True:
 
     similarities = interrogation.interrogation(requete,BDOC,index,tf)
 
+    print(similarities)
+
 
 
 

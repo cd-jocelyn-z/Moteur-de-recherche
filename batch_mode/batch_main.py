@@ -19,7 +19,7 @@ bdoc_dict = read_file.get_bdoc_dict(file_contents)
 index_dict, doc_term_freq  = indexation.get_index_dict(bdoc_dict)
 print()
 print("INDEX DICT EX {WORD 1 : {DOC ID : WORD FREQ, DOC ID : WORD FREQ }, {WORD 2 : {DOC ID : WORD FREQ, DOC ID : WORD FREQ }}")
-print(index_dict)
+#print(index_dict)
 print()
 
 '''
@@ -61,10 +61,10 @@ for batch_q_id, batch_query in batch_queries.items():
     batch_recall[batch_q_id] = recall
     batch_f1_score[batch_q_id] = f1_score
 
-print("\nBATCH INTERROGATION RESULT", batch_interrogation)
-print("\nBATCH PRECISION", batch_precision)
-print("\nBATCH RECALL", batch_recall)
-print("\nBATCH F1 SCORE", batch_f1_score)
+#print("\nBATCH INTERROGATION RESULT", batch_interrogation)
+#print("\nBATCH PRECISION", batch_precision)
+#print("\nBATCH RECALL", batch_recall)
+#print("\nBATCH F1 SCORE", batch_f1_score)
 
 
 

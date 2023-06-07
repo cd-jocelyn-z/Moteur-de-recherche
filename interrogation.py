@@ -65,5 +65,5 @@ def interrogation(requete,BDOC,index,tf):
     for document, similarity in sorted_documents[:10]:
         
         similarities[document]=similarity
-        print(f"Document: {document}, Similarity: {similarity}")
+        #print(f"Document: {document}, Similarity: {similarity}")
     return similarities

@@ -29,7 +29,6 @@ def get_similarities(requete):
 
 
 
-
         
     
 
