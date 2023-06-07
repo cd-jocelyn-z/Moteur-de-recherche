@@ -3,7 +3,7 @@ import indexation
 import interrogation
 import tokenization
 import batch
-
+import os
 
 
 
@@ -14,7 +14,8 @@ import batch
 
 print("Reading database.....")
 
-BDOC = readfile.readfile(".\\AMARYLLIS-98-extrait-OFIL 2\\OFIL\\OD1")
+file_path = os.path.join(os.curdir, "AMARYLLIS-98-extrait-OFIL 2", "OFIL", "OD1")
+BDOC = readfile.readfile(file_path)
 
 print("end of reading !")
 
@@ -74,10 +75,9 @@ batch_recall = {}
 batch_f1_score = {}
 
 for batch_q_id, batch_query in batch_queries.items():
-    retrieved_docs_dict = interrogation.get_retrieved_docs_dict(index_dict, batch_query)
-    batch_interrogation[batch_q_id] = retrieved_docs_dict
+    batch_interrogation[batch_q_id] = all_similarities[batch_q_id]
 
-    retrieved_docs = list(retrieved_docs_dict.keys())
+    retrieved_docs = list(all_similarities[batch_q_id].keys())
     expected_docs_for_query = expected_docs.get(batch_q_id, [])
 
     precision = batch.calculate_precision(retrieved_docs, expected_docs_for_query)
