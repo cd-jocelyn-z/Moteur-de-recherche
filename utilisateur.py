@@ -1,14 +1,15 @@
 import readfile
 import indexation
 import interrogation
-
+import os
 
 
 
 
 
 print("reading the content of the files.....")
-BDOC = readfile.readfile(".\\AMARYLLIS-98-extrait-OFIL 2\\OFIL\\OD1")
+file_path = os.path.join(os.curdir, "AMARYLLIS-98-extrait-OFIL 2", "OFIL", "OD1")
+BDOC = readfile.readfile(file_path)
 print("end of reading")
 
 
