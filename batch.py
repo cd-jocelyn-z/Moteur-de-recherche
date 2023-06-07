@@ -67,17 +67,29 @@ def get_expected_docs_dict(filename):
 
 
 def calculate_precision(retrieved_docs, expected_docs):
+    if len(expected_docs) == 0:
+        return 0
+
     relevant_retrieved = len(set(retrieved_docs).intersection(expected_docs))
-    return relevant_retrieved / len(expected_docs)
+    precision = relevant_retrieved / len(retrieved_docs)
+
+    return precision
 
 
 def calculate_recall(retrieved_docs, expected_docs):
+    if len(retrieved_docs) == 0:
+        return 0
+
     relevant_retrieved = len(set(retrieved_docs).intersection(expected_docs))
-    return relevant_retrieved / len(retrieved_docs)
+    recall = relevant_retrieved / len(expected_docs)
+
+    return recall
 
 
 def calculate_f1_score(precision, recall):
     if precision + recall == 0:
         return 0
 
-    return 2 * (precision * recall) / (precision + recall)
+    f1_score = 2 * (precision * recall) / (precision + recall)
+
+    return f1_score
