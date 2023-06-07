@@ -22,15 +22,15 @@ def get_queries(filename):
     pattern_query = r"<que>(.*?)<\/que>"
     queries = re.findall(pattern_query, record_contents, flags=re.DOTALL)
 
-    for q_id in query_ids:
-        for query in queries:
-            if q_id not in queries_dict:
-                queries_dict[q_id] = query
-
+    for i in range(len(query_ids)):
+        q_id = query_ids[i]
+        query = queries[i]
+        if q_id not in queries_dict:
+            queries_dict[q_id] = query
     return queries_dict
 
 
-# print(get_queries("OT1.txt"))
+print(get_queries("OT1.txt"))
 
 
 # Process file OT1D1
