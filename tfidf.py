@@ -1,45 +1,25 @@
-import tokenization as tk
 import math
 
+from tokenization import tokenization
 
-'''
-        la creation d'une matrice tfidf 
-        le retour de cette fonction un dictionnaire de dictionnaire :
-        {
-            doc1 : {
-                        mot1: tf-idf
-                        mot2: tf-idf
-                        ....
-                        motn: tf-idf
-                    {
-            doc2 :
-            doc3 :
-            .... :
-            docn :
-            
-            }
-'''
-def tfidf(sousBDOC,BDOC,tf,index):
-    tfidf_matrice = {}
-    for document in sousBDOC:
-        N= len(BDOC)
-        #print("*********************************************************************************************")
-        #print("la taille  de BDOC " + str(N))
-        tfidf_vecteur = {}
-        nombre_motDocument = len(tk.tokenization(BDOC[document]))
-        #print("le nombre de mot dans le document", nombre_motDocument)
-        for word in tf[document].keys():
-            occurence = tf[document][word]
-            tf_value = occurence / nombre_motDocument
-            #print(f"{document}: ({word}): ({str(occurence)}\{str(nombre_motDocument)})={str(tf_value)}")
-            n = len(index[word])
-            #print(f"le nombre de document ou le mot ({word}) apparait = {str(n)}")
-            idf = math.log10(N/n)
-            #print(f"le idf de mot:({word}): ({N}\{n}) = ({str(idf)}))")
-            tfidf = tf_value * idf
-            #print(f"le tf-idf de :({word}): ({tf_value}*{idf})=({str(tfidf)})")
-            tfidf_vecteur[word] = tfidf
-            #print(tfidf_vecteur)
 
-        tfidf_matrice[document] =  tfidf_vecteur #normalized_vector
-    return tfidf_matrice
+def tfidf(bdoc_dict, doc_term_freq, index_dict):
+    documents_tfidf_dict = {}
+
+    for document_id in bdoc_dict:
+        total_documents = len(bdoc_dict)
+        tfidf_inner_dict = {}
+        total_tokens_in_document = len(tokenization(bdoc_dict[document_id]))
+
+        for token in doc_term_freq[document_id].keys():
+            token_occurrence = doc_term_freq[document_id][token]
+            term_frequency = token_occurrence / total_tokens_in_document
+            total_documents_containing_the_word = len(index_dict[token])
+            idf = math.log10(total_documents / total_documents_containing_the_word)
+            tfidf = term_frequency * idf
+            tfidf_inner_dict[token] = tfidf
+
+        # normalized_vector
+        documents_tfidf_dict[document_id] = tfidf_inner_dict
+
+    return documents_tfidf_dict

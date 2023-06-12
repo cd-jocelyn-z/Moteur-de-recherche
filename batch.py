@@ -29,7 +29,7 @@ def get_queries(filename):
             queries_dict[q_id] = query
     return queries_dict
 
-
+# print('get_queries returns : query_id and query')
 print(get_queries("OT1.txt"))
 
 
@@ -63,6 +63,8 @@ def get_expected_docs_dict(filename):
 
     return expected_docs_dict
 
+
+# print('\n get_expected_docs_dict returns: query_id and list of expected doc numbers')
 # print(get_expected_docs_dict("OT1D1.txt"))
 
 
