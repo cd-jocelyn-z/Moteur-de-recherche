@@ -46,20 +46,28 @@ def interrogation(requete,index,tf,nlp):
     tokens = tk.tokenization(requete)
     stop_words = nlp.Defaults.stop_words
     stop_words = set(stop_words).union('-','d','l','s','m','t')
+    
     requete = tk.delete_stop_words(tokens,stop_words)
+    
     #Création du sousBDOC
     sousBDOC = sousBdoc(index,requete)
+
     #Création de la matrice tf-idf
     tfidf_matrice= tfidf(sousBDOC,tf,index)
+    
     #Vectorisation de la requête
     req = requete_vecteur(requete,index,tf)
+    
     #On assigne à "similarite" le dictionnaire {doc_id:similarité}
     similarite = cosine_similarity(req, tfidf_matrice)
+    
     #On classe les documents par ordre de similarité
     similarities = {}
     sorted_documents = sorted(similarite.items(), key=lambda x: x[1], reverse=True)
+    
     #On décide de ne garder qu'un certain nombre de documents. Ce nombre est spécifié dans sorted_documents[:n]
     for document_id, similarity in sorted_documents[:30]:
+        
         similarities[document_id]=similarity
         #print(f"Document: {document}, Similarity: {similarity}")
     

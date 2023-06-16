@@ -1,8 +1,10 @@
 import math
+
+
 '''
-La fonction tfidf prend en entrée le sousBDOC,
-la matrice tf et l'index. Elle renvoie la matrice tfidf de type
-dictionnaire de dictionnaire matrice_tfidf = {doc:{mot:tf*idf}}         
+La fonction tfidf prend en entrée le sousBDOC, la matrice tf et l'index. Elle renvoie la matrice tfidf de type
+dictionnaire de dictionnaire matrice_tfidf = {doc:{mot:tf*idf}}
+            
 '''
 def tfidf(sousBDOC,tf,index):
     matrice_tfidf = {}

@@ -8,8 +8,9 @@ import spacy
 
 
 '''Sérialisation de l'index et de la matrice tf'''
-#Dans le cas où le fichier sérialisé est dans le répertoire courant
-if  "serialized_index.pickle" in os.listdir(os.curdir): 
+
+if  "serialized_index.pickle" in os.listdir(os.curdir): #Dans le cas où le fichier sérialisé est dans le répertoire courant
+    print("the serialized file is in the folder")
     with open('serialized_index.pickle', 'rb') as f:
         serialized_index = f.read()
     index = pickle.loads(serialized_index) #Assignation de l'index sérialisé à "index"
@@ -17,11 +18,17 @@ if  "serialized_index.pickle" in os.listdir(os.curdir):
         serialized_tf = f.read() 
     tf = pickle.loads(serialized_tf) #Assignation de la matrice tf sérialisée à "tf"
     
-else:  
-   #Dans le cas où le fichier sérialisé n'existe pas ou qu'il n'est pas le dans répertoire courant
+else:  #Dans le cas où le fichier sérialisé n'existe pas ou qu'il n'est pas le dans répertoire courant
+    print("the serialized file is not in the folder")
+    print("loading database files...")
     BDOC = readfile(os.path.join(os.curdir, "AMARYLLIS-98-extrait-OFIL", "OFIL", "OD1"))
-    index,tf=indexation(BDOC)
+    print("end of loading")
 
+    print("indexing...")
+    index,tf=indexation(BDOC)
+    print("end of indexing")
+
+    print("serializing")
     serialized_index = pickle.dumps(index)
     with open('serialized_index.pickle', 'wb') as f:
         f.write(serialized_index)
@@ -29,10 +36,14 @@ else:
     serialized_tf = pickle.dumps(tf)
     with open('serialized_tf.pickle', 'wb') as f:
         f.write(serialized_tf)
+    print("end of serializing")
 
 
-'''Chargement du modèle spaCy pour le français'''
+'''Chargement des stop-words'''
+print("Loading french spacy...")
 nlp = spacy.load("fr_core_news_sm")
+print("end of loading !")
+
 
 while True:
     Rep = input("Tapez R pour entrer une requête. Tapez B pour entrer dans le batch mode.\nTapez Q pour quitter.\n").lower()

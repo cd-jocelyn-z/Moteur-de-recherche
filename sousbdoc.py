@@ -18,4 +18,4 @@ def sousBdoc(index,requete):
       if document not in sousBDOC:
         sousBDOC.add(document)
     
-    return sousBDOC
+  return sousBDOC
