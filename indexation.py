@@ -2,33 +2,34 @@ import tokenization as tk
 
 
 '''
-
+La fonction indexation prend en entrée le BDOC et renvoie l'index de type dictionnaire de dictionnaire {mot:{doc:nb_occ}}
+ainsi que la matrice tf {doc:{mot:nb_occ}}                                                                 
 '''
-
-def indexation(BDOC):
-    index={}
-    doc_term_freq = {}
+def indexation(BDOC): 
+    index = {} 
+    matrice_tf = {}
 
     for NumArticle in BDOC.keys():
-        dic2={}
-        term_freq_dict={}
-        for word in tk.tokenization(BDOC[NumArticle]):
-            
-            #tf dictionnary
-            if word in term_freq_dict.keys():
-                term_freq_dict[word]+=1
-            else:
-                term_freq_dict[word]=1
 
-            if word not in index.keys():
-                dic2={NumArticle:0}
-                index[word]=dic2
-            
-            if word in index.keys():
-                if NumArticle in index[word].keys():
-                    index[word][NumArticle]+=1
-                else:
-                    index[word][NumArticle]=1
-            
-            doc_term_freq[NumArticle]=term_freq_dict
-    return index,doc_term_freq
+        tf_dict = {}
+
+        words= tk.tokenization(BDOC[NumArticle])
+        unique_words = set(words)
+
+        #Création de l'index
+        for word in unique_words:            
+            if word not in index:
+                index[word] = {}
+            index[word][NumArticle]=words.count(word)
+                
+        
+        #Création de la matrice tf
+        for word in words:
+            if word in tf_dict.keys():
+                tf_dict[word]+=1
+            else:
+                tf_dict[word]=1
+
+        matrice_tf[NumArticle]=tf_dict
+        
+    return index,matrice_tf

@@ -1,23 +1,21 @@
+
+
+
 '''
-    la creation d'un dictionnaire qui contient
-    la sous ensemble D des documents qui contient
-    au moins au mot de la requete
+Création du set sousBDOC qui contient le sous-ensemble des documents dans lesquels il y a au moins 1 mot de la requête:
 '''
 def sousBdoc(index,requete):
-    result={}
-    sousBDOC=set()
-    tfidf_dico={}
-    doc_vector={}
-
+  result={}
+  sousBDOC=set()
     
-    for WordRequete in requete.split(' '):
-      for Word in index.keys():
-        if WordRequete == Word:
-          result[Word]=index.get(WordRequete)
+  for Word_query in requete:
+    for Word in index.keys():
+      if Word_query == Word:
+        result[Word_query]=index[Word_query]
 
-    for word in result.keys():
-        for document in result[word].keys():
-            if document not in sousBDOC:
-                sousBDOC.add(document)
+  for word in result.keys():
+    for document in result[word].keys():
+      if document not in sousBDOC:
+        sousBDOC.add(document)
     
     return sousBDOC

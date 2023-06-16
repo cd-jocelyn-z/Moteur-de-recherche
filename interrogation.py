@@ -1,69 +1,66 @@
-import readfile
-import indexation
-import interrogation
-import sousbdoc
+from sousbdoc import sousBdoc
 import tokenization as tk
-import vocabulaire
 import math
-import tfidf
-import requete_vecteur
+from tfidf import tfidf
+from requete_vecteur import requete_vecteur
 
 
 '''
-    fonction pour calculer la similarité 
+La fonction cosine_similarity prend en entrée le vecteur requête et l'ensemble des vecteurs documents (contenus dans matrice_tfidf).
+Elle envoie un dictionnaire qui contient le numéro du document et sa similarité cosinus avec la requête.
 '''
-def calculate_similarity(req, dictionnaire):
-    similarity_scores = {}
-    req_vector = req.values()
 
-    for doc_id, doc in dictionnaire.items():
-        doc_vector = doc.values()
+def cosine_similarity(query_vector, document_vectors):
+    similarities = {}
 
-        # Calculate dot product
-        dot_product = sum(req_value * doc_value for req_value, doc_value in zip(req_vector, doc_vector))
+    for document_id, document_vector in document_vectors.items():
+        dot_product = 0.0
+        query_norm = 0.0
+        document_norm = 0.0
 
-        # Calculate Euclidean norm
-        req_norm = math.sqrt(sum(value**2 for value in req_vector))
-        doc_norm = math.sqrt(sum(value**2 for value in doc_vector))
+        # Calcul du produit scalaire entre le vecteur requête et le vecteur document
+        for term, query_weight in query_vector.items():
+            if term in document_vector:
+                dot_product += query_weight * document_vector[term]
 
-        # Calculate cosine similarity
-        similarity = dot_product / (req_norm * doc_norm)
+            query_norm += query_weight ** 2
 
-        similarity_scores[doc_id] = similarity
+        for term, document_weight in document_vector.items():
+            document_norm += document_weight ** 2
 
-    return similarity_scores
+        #Calcul de la norme du vecteur requête et du vecteur document
+        query_norm = math.sqrt(query_norm)
+        document_norm = math.sqrt(document_norm)
+
+        # Calcul de la similarité cosinus
+        similarity = dot_product / (query_norm * document_norm)
+
+        similarities[document_id] = similarity
+
+    return similarities
 
 
-
-def interrogation(requete,BDOC,index,tf):
-    '''
-        creation de sousBDOC
-    '''
-    sousBDOC=sousbdoc.sousBdoc(index,requete)
-    #print((sousBDOC))
-
-     
-
-    '''
-        la creation d'une matrice tfidf 
-    '''
-    tfidf_matrice= tfidf.tfidf(sousBDOC,BDOC,tf,index)
-    #print(tfidf_matrice)
+def interrogation(requete,index,tf,nlp):
     
- 
-    '''
-        la creation d'un vecteur de la requete
-    '''
-    req = requete_vecteur.requete_vecteur(requete,BDOC,index)
-    #print(req)
-    
-    similarite=calculate_similarity(req, tfidf_matrice)
-    
+    # Tokenization de la requête et suppression des stop words
+    tokens = tk.tokenization(requete)
+    stop_words = nlp.Defaults.stop_words
+    stop_words = set(stop_words).union('-','d','l','s','m','t')
+    requete = tk.delete_stop_words(tokens,stop_words)
+    #Création du sousBDOC
+    sousBDOC = sousBdoc(index,requete)
+    #Création de la matrice tf-idf
+    tfidf_matrice= tfidf(sousBDOC,tf,index)
+    #Vectorisation de la requête
+    req = requete_vecteur(requete,index,tf)
+    #On assigne à "similarite" le dictionnaire {doc_id:similarité}
+    similarite = cosine_similarity(req, tfidf_matrice)
+    #On classe les documents par ordre de similarité
     similarities = {}
     sorted_documents = sorted(similarite.items(), key=lambda x: x[1], reverse=True)
-    # affichage les 10 top similarités
-    for document, similarity in sorted_documents[:10]:
-        
-        similarities[document]=similarity
+    #On décide de ne garder qu'un certain nombre de documents. Ce nombre est spécifié dans sorted_documents[:n]
+    for document_id, similarity in sorted_documents[:30]:
+        similarities[document_id]=similarity
         #print(f"Document: {document}, Similarity: {similarity}")
+    
     return similarities

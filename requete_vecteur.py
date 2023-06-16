@@ -1,33 +1,26 @@
-import tokenization as tk
 import math
 
 '''
-        la creation d'un vecteur requete  
-        le retour de cette fonction est un dictionnaire:
-           req = {
-                        mot_requete: tf-idf
-                        mot_requete: tf-idf
-                        ....
-                        motn: tf-idf
-                    {
+Vectorisation de la requête:
+La fonction requete_vecteur prend en entrée la requête, l'index ainsi que la matrice tf. Elle renvoie la requête vectorisée sous forme 
+de dictionnaire req = {mot_requete:tf*idf}.
 '''
 
-def requete_vecteur(requete,sousBDOC,index):
-    
-    N= len(sousBDOC)
+def requete_vecteur(requete,index,tf):
+    N= len(tf)
     req={}
-    taille_requete = len(tk.tokenization(requete))
     
-    for word in tk.tokenization(requete):
+    for word in requete:
         
         if word in index.keys():
-            
-            idf = math.log(N/len(index[word]))
-            tfidf=(1/taille_requete)* idf
-            req[word]=tfidf
+            tf = requete.count(word)
+            n = len(index[word])
+            idf = math.log10(N/n)
+            tfidf = tf * idf
+            req[word] = tfidf
             
         else:
-            print("une autre requete!")
-   
-   
+            print(f"Le mot {word} n'est pas dans le corpus")
+    
+    print(f"Le vecteur de requete est : {req}")
     return req 
