@@ -9,8 +9,8 @@ Pour entrer dans le batch mode il faudra taper "B" suivi de "G" pour une évalua
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 English
-To use our SRJ search engine, you may execute the "main.py" file.
-For a simple research type "R".
-To enter the batch mode type "B" followed by "G" for a general evaluation or by "M" for a micro-evaluation (for a single query)
+To utilize our SRJ search engine, execute the "main.py" file.
+For a straightforward search, type "R". 
+To enter batch mode, type "B" followed by "G" for a general evaluation or "M" for a micro-evaluation (for a single query).
 
 
